@@ -22,7 +22,10 @@ void printGraph(){
 	for(unsigned int i=0; i<table.size(); i++){
 		cout << names[i] << "\t";
 		for(unsigned int j=0; j<table[i].size(); j++){
-			cout << table[i][j] << "\t";
+			if(table[i][j]==-1)
+				cout << "\t";
+			else
+				cout << table[i][j] << "\t";
 		}
 		cout << endl;
 	}
