@@ -287,10 +287,7 @@ int main() {
 #if DEBUG
 cout << input << endl;
 #endif
-			vector<string> output = parseInput(input);	
-#if DEBUG
-cout << output << endl;
-#endif
+			vector<string> output = parseInput(input);
 			if(output.size()>0){
 				//Gets distance using algorithm
 				if(output[0].compare("get")==0){
@@ -373,7 +370,7 @@ cout << "Console: remove" << endl;
 					}
 				}
 				//Ends program
-				else if(output[0].compare("exit")==0){
+				else if(output[0].compare("exit")==0 || output[0].compare("quit")==0 || output[0].compare("end")==0){
 #if DEBUG
 cout << "Console: exit" << endl;
 #endif
