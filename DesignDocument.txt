@@ -1,0 +1,7 @@
+Michael Quinn
+
+How to compile the code
+1. Download the file to a linux machine
+2. Untar the file
+3. In the working directory, run the following command: make
+4. In the working directory, run the following command: ./program
