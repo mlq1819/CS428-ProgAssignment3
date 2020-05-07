@@ -295,12 +295,18 @@ cout << input << endl;
 cout << "Console: get" << endl;
 #endif
 					if(output.size()!=3){
+#if DEBUG
+cout << "Usage Error" << endl;
+#endif
 						message = "Usage: " + options[0] + "\nYou supplied: ";
 						for(unsigned int i=0; i<output.size(); i++){
 							message += output[i] + " ";
 						}
 					}
 					else {
+#if DEBUG
+cout << "Usage Accurate" << endl;
+#endif
 						int result = dijkstra(output[1], output[2]);
 						if(result == -2){
 							message = "Failure: Invalid node name";
@@ -317,12 +323,18 @@ cout << "Console: get" << endl;
 cout << "Console: add" << endl;
 #endif
 					if(output.size()!=2){
+#if DEBUG
+cout << "Usage Error" << endl;
+#endif
 						message = "Usage: " + options[1] + "\nYou supplied: ";
 						for(unsigned int i=0; i<output.size(); i++){
 							message += output[i] + " ";
 						}
 					}
 					else {
+#if DEBUG
+cout << "Usage Accurate" << endl;
+#endif
 						unsigned int result = addNode(output[1]);
 						if(result==num_nodes){
 							message = "Failure: node already exists";
@@ -337,12 +349,18 @@ cout << "Console: add" << endl;
 cout << "Console: edit" << endl;
 #endif
 					if(output.size()!=4){
+#if DEBUG
+cout << "Usage Error" << endl;
+#endif
 						message = "Usage: " + options[2] + "\nYou supplied: ";
 						for(unsigned int i=0; i<output.size(); i++){
 							message += output[i] + " ";
 						}
 					}
 					else{
+#if DEBUG
+cout << "Usage Accurate" << endl;
+#endif
 						int distance = stoi(output[3], NULL, 10);
 						if(editNode(output[1], output[2], distance)){
 							message = "Success: Distance changed to " + table[getIndexFromName(output[1])][getIndexFromName(output[2])];
@@ -357,11 +375,17 @@ cout << "Console: edit" << endl;
 cout << "Console: remove" << endl;
 #endif
 					if(output.size()!=2){
+#if DEBUG
+cout << "Usage Error" << endl;
+#endif
 						message = "Usage: " + options[3] + "\nYou supplied: ";
 						for(unsigned int i=0; i<output.size(); i++){
 							message += output[i] + " ";
 						}
 					} else {
+#if DEBUG
+cout << "Usage Accurate" << endl;
+#endif
 						if(removeNode(output[1])){
 							message = "Success: Removed node with name " + output[1];
 						} else {
