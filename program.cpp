@@ -90,7 +90,7 @@ int dijkstra(unsigned int from, unsigned int to){
 					}
 				}
 			}
-			visited[i] = true;
+			visited[current] = true;
 			all_visited = true;
 			for(unsigned int i=0; i<num_nodes; i++){
 				if(distance[i]>-1)
@@ -104,7 +104,7 @@ int dijkstra(unsigned int from, unsigned int to){
 }
 
 int dijkstra(string from, string to){
-	return getDistance(getIndexFromName(from), getIndexFromName(to));
+	return dijkstra(getIndexFromName(from), getIndexFromName(to));
 }
 
 bool editNode(unsigned int from, unsigned int to, int new_distance){
@@ -245,7 +245,7 @@ vector<string> parseInput(string input){
 	if(!new_word && current.compare("")!=0){
 		output.push_back(current);
 		current="";
-		new_Word = true;
+		new_word = true;
 	}
 	return output;
 }
@@ -273,12 +273,15 @@ int main() {
 			cout << (i+1) << ".  " << options[i] << endl;
 			cout << "\t\t" << desc[i] << endl;
 		}
-		std::cout << messsage << endl;
+		if(message.compare("")==0)
+			cout << endl;
+		else
+			cout << "\n" << message << endl;
 		message = "";
 		input = "";
 		cin >> input;
 		cout << "\n\n\n\n" << endl;
-		if(input.length>0){
+		if(input.size()>0){
 			vector<string> output = parseInput(input);
 			if(output.size()>0){
 				//Gets distance using algorithm
