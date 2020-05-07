@@ -166,6 +166,15 @@ cout << "dijkstra(" << from << "," << to << ")" << endl;
 	return dijkstra(getIndexFromName(from), getIndexFromName(to));
 }
 
+bool check(){
+	bool output = true;
+	for(unsigned int i=0; i<num_nodes; i++){
+		for(unsigned int j=0; j<num_nodes; j++){
+			output = output && (table[i][j] == table[j][i]);
+		}
+	}
+}
+
 void fullDijkstra(){
 #if DEBUG
 cout << "fullDijkstra()" << endl;
@@ -174,6 +183,9 @@ cout << "fullDijkstra()" << endl;
 	full_table.clear();
 	for(unsigned int i=0; i<num_nodes; i++){
 		full_table.push_back(rowDijkstra(i, false));
+	}
+	if(!check()){
+		cout << "Something's amiss..." << endl;
 	}
 }
 
