@@ -6,7 +6,7 @@
 #include <vector>
 #include <ctype.h>
 
-#define DEBUG true
+#define DEBUG false
 
 using namespace std;
 
