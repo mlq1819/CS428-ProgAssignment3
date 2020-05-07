@@ -60,7 +60,7 @@ cout << "rowDijkstra(" << from << ")" << endl;
 	//Ensures all reachable nodes are visited
 	while(!all_visited){
 #if DEBUG
-cout << "\tvisiting" << current << "(";
+cout << "\tvisiting " << current << "(";
 if(visited[current])
 	cout << "visited";
 else
@@ -73,8 +73,9 @@ else
 cout << ")" << endl;
 #endif
 		//Ensures the current node has not been visited
-		if(!visited[current] && do_print){
-			cout << "At \"" << getNameFromIndex(current) << "\": " << distance[current] << endl;
+		if(!visited[current]){
+			if(do_print)
+				cout << "At \"" << getNameFromIndex(current) << "\": " << distance[current] << endl;
 			
 			//Loops through all the nodes, updating their saved distances through the local distance
 			for(unsigned int i=0; i<num_nodes; i++){
