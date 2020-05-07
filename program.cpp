@@ -15,7 +15,7 @@ vector<string> names;
 vector<vector<int>> table;
 vector<vector<int>> full_table;
 bool graph_view = true;
-bool table_view = false;
+bool table_view = true;
 bool updated = false;
 int table_num = 0;
 
@@ -434,14 +434,38 @@ void printDoubleVector(vector<vector<int>> vector){
 }
 
 void printGraph(){
-	cout << "Graph View" << endl;
+	cout << "Graph View (";
+	switch(table_num){
+		case 0:
+			cout << "a";
+			break;
+		case 1:
+			cout << "b";
+			break;
+		case 2:
+			cout << "c";
+			break;
+	}
+	cout << ")" << endl;
 	printDoubleVector(table);
 }
 
 void printTable(){
 	if(!updated)
 		fullDijkstra();
-	cout << "Algorithm View" << endl;
+	cout << "Algorithm View (";
+	switch(table_num){
+		case 0:
+			cout << "a";
+			break;
+		case 1:
+			cout << "b";
+			break;
+		case 2:
+			cout << "c";
+			break;
+	}
+	cout << ")" << endl;
 	printDoubleVector(full_table);
 }
 
