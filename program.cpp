@@ -267,12 +267,12 @@ int main() {
 	options.push_back("exit");
 	desc.push_back("Exits the program");
 #if DEBUG
-	unsigned long cycle_num = 0;
+unsigned long cycle_num = 0;
 #endif
 	bool run = true;
 	while(run){
 #if DEBUG
-		cout << "Cycle: " << ++cycle_num << endl;
+cout << "Cycle: " << ++cycle_num << endl;
 #endif
 		printGraph();
 		for(unsigned int i=0; i<options.size(); i++){
@@ -288,15 +288,22 @@ int main() {
 		cout << "Input command:" << endl;
 		getline(cin, input);
 #if DEBUG
-		cout << "\n\n\n\n" << endl;
+cout << "\n\n\n\n" << endl;
 #else
 		system("clear");
 #endif
 		if(input.size()>0){
 #if DEBUG
-cout << input << endl;
+cout << "input: \t" << input << endl;
 #endif
 			vector<string> output = parseInput(input);
+#if DEBUG
+cout << "output:\t";
+for(unsigned int i=0; i<output.size(); i++){
+	cout << "\"" << output[i] << "\" ";
+}
+cout << endl;
+#endif
 			if(output.size()>0){
 				//Gets distance using algorithm
 				if(output[0].compare("get")==0){
