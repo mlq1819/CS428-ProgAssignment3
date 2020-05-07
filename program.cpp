@@ -120,7 +120,7 @@ cout << ")" << endl;
 				if(table[current][i]>-1){ //ensure there is a valid local path to it
 					cout << "\tTo \"" << getNameFromIndex(i) << "\":" << endl;
 					cout << "\t\tLocal: " << table[current][i] << endl;
-					cout << "\t\tAccum: " << table[current][i] + distance[current] << endl;
+					cout << "\t\tAccum: " << table[current][i] + distance[current] << "\t = " << distance[current] << " + " << table[current][i] << endl;
 					if(distance[i] == -1)
 						cout << "\t\tSaved: ∞" << endl;
 					else
