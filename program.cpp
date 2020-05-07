@@ -6,7 +6,7 @@
 #include <vector>
 #include <ctype.h>
 
-#define DEBUG false
+#define DEBUG true
 
 using namespace std;
 
@@ -165,6 +165,9 @@ cout << "dijkstra(" << from << "," << to << ")" << endl;
 }
 
 void fullDijkstra(){
+#if DEBUG
+cout << "fullDijkstra()" << endl;
+#endif
 	updated=true;
 	full_table.clear();
 	for(unsigned int i=0; i<num_nodes; i++){
