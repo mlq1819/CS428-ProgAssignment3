@@ -13,26 +13,9 @@ using namespace std;
 unsigned int num_nodes = 0;
 vector<string> names;
 vector<vector<int>> table;
-
-void printGraph(){
-	cout << "\t";
-	for(unsigned int i=0; i<num_nodes; i++){
-		cout << names[i] << "\t";
-	}
-	cout << "\n" << endl;
-	for(unsigned int i=0; i<num_nodes; i++){
-		cout << names[i] << "\t";
-		for(unsigned int j=0; j<num_nodes; j++){
-			if(table[i][j]<0)
-				cout << "\t";
-			else if(table[i][j]==0)
-				cout << "-\t";
-			else
-				cout << table[i][j] << "\t";
-		}
-		cout << "\n" << endl;
-	}
-}
+vector<vector<int>> full_table;
+bool graph = true;
+bool updated = false;
 
 string getNameFromIndex(unsigned int index){
 	return names[index];
@@ -56,15 +39,14 @@ cout << "... unavailable" << endl;
 	return num_nodes;
 }
 
-int dijkstra(unsigned int from, unsigned int to){
+vector<int> rowDijkstra(unsigned int from, bool do_print){
 #if DEBUG
-cout << "dijkstra(" << from << "," << to << ")" << endl;
+cout << "rowDijkstra(" << from << ")" << endl;
 #endif
-	if(from == num_nodes || to == num_nodes){
+
+	if(from == num_nodes){
 		return -2;
 	}
-	
-	cout << "Performing dijkstra's algorithm on \"" << getNameFromIndex(from) << "\" to \"" << getNameFromIndex(to) << "\"" << endl;
 	
 	vector<bool> visited = vector<bool>();
 	vector<int> distance = vector<int>();
@@ -95,7 +77,7 @@ else
 cout << ")" << endl;
 #endif
 		//Ensures the current node has not been visited
-		if(!visited[current]){
+		if(!visited[current] && do_print){
 			cout << "At \"" << getNameFromIndex(current) << "\": " << distance[current] << endl;
 			
 			//Loops through all the nodes, updating their saved distances through the local distance
@@ -118,19 +100,22 @@ else
 cout << ")" << endl;
 #endif
 				if(table[current][i]>-1){ //ensure there is a valid local path to it
-					cout << "\tTo \"" << getNameFromIndex(i) << "\":" << endl;
-					cout << "\t\tLocal: " << table[current][i] << endl;
-					cout << "\t\tAccum: " << table[current][i] + distance[current] << "   =   " << distance[current] << " + " << table[current][i] << endl;
-					if(distance[i] == -1)
-						cout << "\t\tSaved: ∞" << endl;
-					else
-						cout << "\t\tSaved: " << distance[current] << endl;
+					if(do_print){
+						cout << "\tTo \"" << getNameFromIndex(i) << "\":" << endl;
+						cout << "\t\tLocal: " << table[current][i] << endl;
+						cout << "\t\tAccum: " << table[current][i] + distance[current] << "   =   " << distance[current] << " + " << table[current][i] << endl;
+						if(distance[i] == -1)
+							cout << "\t\tSaved: ∞" << endl;
+						else
+							cout << "\t\tSaved: " << distance[current] << endl;
+					}
 					int local = table[current][i] + distance[current];
 					if(distance[i] == -1 || local < distance[i]){
 						distance[i] = local;
-						cout << "\t\t\tUpdated value to " << distance[i] << endl;
+						if(do_print)
+							cout << "\t\t\tUpdated value to " << distance[i] << endl;
 					}
-				} else {
+				} else if(do_print){
 					cout << "\t\"" << getNameFromIndex(i) << "\" not local" << endl;
 				}
 			}
@@ -144,17 +129,36 @@ cout << ")" << endl;
 		//iterates to the next index, but will loop around if necessary
 		current = (current+1)%num_nodes;
 	}
-	cout << "\n\t";
-	for(unsigned int i=0; i<num_nodes; i++){
-		cout << names[i] << "\t";
+	if(do_print){
+		cout << "\n\t";
+		for(unsigned int i=0; i<num_nodes; i++){
+			cout << names[i] << "\t";
+		}
+		cout << "\n" << endl;
+		cout << "\t";
+		for(unsigned int i=0; i<num_nodes; i++){
+			cout << distance[i] << "\t";
+		}
+		cout << "\n\n" << endl;
 	}
-	cout << "\n" << endl;
-	cout << "\t";
-	for(unsigned int i=0; i<num_nodes; i++){
-		cout << distance[i] << "\t";
+	return distance;
+}
+
+vector<int> rowDijkstra(unsigned int from){
+	return rowDijkstra(from, true);
+}
+
+int dijkstra(unsigned int from, unsigned int to){
+#if DEBUG
+cout << "dijkstra(" << from << "," << to << ")" << endl;
+#endif
+	if(from == num_nodes || to == num_nodes){
+		return -2;
 	}
-	cout << "\n\n" << endl;
-	return distance[to];
+	
+	cout << "Performing dijkstra's algorithm on \"" << getNameFromIndex(from) << "\" to \"" << getNameFromIndex(to) << "\"" << endl;
+	
+	return allDijkstra(from, true)[to];
 }
 
 int dijkstra(string from, string to){
@@ -164,6 +168,14 @@ cout << "dijkstra(" << from << "," << to << ")" << endl;
 	return dijkstra(getIndexFromName(from), getIndexFromName(to));
 }
 
+int fullDijkstra(){
+	updated=true;
+	full_table.clear();
+	for(unsigned int i=0; i<num_nodes; i++){
+		full_table.push_back(rowDijkstra(i), false);
+	}
+}
+
 bool editNode(unsigned int from, unsigned int to, int new_distance){
 	if(from == num_nodes || to == num_nodes)
 		return false;
@@ -171,7 +183,7 @@ bool editNode(unsigned int from, unsigned int to, int new_distance){
 		return false;
 	if(new_distance!=0 && from==to)
 		return false;
-	
+	updated = false;
 	if(new_distance<-1){
 		return editNode(from,to,-1);
 	}
@@ -205,6 +217,7 @@ cout << "addNode(" << input << ")" << endl;
 	
 	//Increases the number of nodes being tracked
 	num_nodes++;
+	updated = false;
 	
 	//Adds name to name list
 	names.push_back(name);
@@ -229,6 +242,7 @@ bool removeNode(unsigned int index){
 	
 	//Decreases the number of tracked nodes
 	num_nodes--;
+	updated = false;
 	
 	//Removes name from name list
 	names.erase(names.begin()+index);
@@ -316,6 +330,38 @@ vector<string> parseInput(string input){
 	return output;
 }
 
+void printDoubleVector(vector<vector<int>> vector){
+	cout << "\t";
+	for(unsigned int i=0; i<num_nodes; i++){
+		cout << names[i] << "\t";
+	}
+	cout << "\n" << endl;
+	for(unsigned int i=0; i<num_nodes; i++){
+		cout << names[i] << "\t";
+		for(unsigned int j=0; j<num_nodes; j++){
+			if(vector[i][j]<0)
+				cout << "\t";
+			else if(vector[i][j]==0)
+				cout << "-\t";
+			else
+				cout << vector[i][j] << "\t";
+		}
+		cout << "\n" << endl;
+	}
+}
+
+void printGraph(){
+	cout << "Graph View" << endl;
+	printDoubleVector(table);
+}
+
+void printTable(){
+	if(!updated)
+		fullDijkstra();
+	cout << "Algorithm View" << endl;
+	printDoubleVector(full_table);
+}
+
 int main() { 
 	fillGraph();
 	string input;
@@ -330,6 +376,8 @@ int main() {
 	desc.push_back("Edits the local distance between <name1> and <name2> to <distance>");
 	options.push_back("remove <name>");
 	desc.push_back("Removes node with name <name> from the graph");
+	options.push_back("switch");
+	desc.push_back("Switches from graph view to algorithm table view");
 	options.push_back("exit");
 	desc.push_back("Exits the program");
 #if DEBUG
@@ -340,7 +388,10 @@ unsigned long cycle_num = 0;
 #if DEBUG
 cout << "Cycle: " << ++cycle_num << endl;
 #endif
-		printGraph();
+		if(graph)
+			printGraph();
+		else
+			printTable();
 		for(unsigned int i=0; i<options.size(); i++){
 			cout << (i+1) << ".  " << options[i] << endl;
 			cout << "\t\t" << desc[i] << endl;
@@ -474,6 +525,15 @@ cout << "Usage Accurate" << endl;
 							message = "Failure: Node does not exist";
 						}
 					}
+				} 
+				//Switches between views
+				else if(output[0].compare("switch")==0){
+					graph = !graph;
+					message = "Switched to ";
+					if(graph)
+						message += "graph view";
+					else
+						message += "algorithm view";
 				}
 				//Ends program
 				else if(output[0].compare("exit")==0 || output[0].compare("quit")==0 || output[0].compare("end")==0){
