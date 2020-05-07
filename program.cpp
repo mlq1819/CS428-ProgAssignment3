@@ -266,8 +266,14 @@ int main() {
 	desc.push_back("Removes node with name <name> from the graph");
 	options.push_back("exit");
 	desc.push_back("Exits the program");
+#if DEBUG
+	unsigned long cycle_num = 0;
+#endif
 	bool run = true;
 	while(run){
+#if DEBUG
+		cout >> ++cycle_num >> endl;
+#endif
 		printGraph();
 		for(unsigned int i=0; i<options.size(); i++){
 			cout << (i+1) << ".  " << options[i] << endl;
