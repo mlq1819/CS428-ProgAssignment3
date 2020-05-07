@@ -284,10 +284,19 @@ int main() {
 		//system("clear");
 		cout << "\n\n\n\n" << endl;
 		if(input.size()>0){
-			vector<string> output = parseInput(input);
+#if DEBUG
+cout << input << endl;
+#endif
+			vector<string> output = parseInput(input);	
+#if DEBUG
+cout << output << endl;
+#endif
 			if(output.size()>0){
 				//Gets distance using algorithm
 				if(output[0].compare("get")==0){
+#if DEBUG
+cout << "Console: get" << endl;
+#endif
 					if(output.size()!=3){
 						message = "Usage: " + options[0] + "\nYou supplied: ";
 						for(unsigned int i=0; i<output.size(); i++){
@@ -307,6 +316,9 @@ int main() {
 				}
 				//Adds node
 				else if(output[0].compare("add")==0){
+#if DEBUG
+cout << "Console: add" << endl;
+#endif
 					if(output.size()!=2){
 						message = "Usage: " + options[1] + "\nYou supplied: ";
 						for(unsigned int i=0; i<output.size(); i++){
@@ -324,6 +336,9 @@ int main() {
 				}
 				//Edits node
 				else if(output[0].compare("edit")==0){
+#if DEBUG
+cout << "Console: edit" << endl;
+#endif
 					if(output.size()!=4){
 						message = "Usage: " + options[2] + "\nYou supplied: ";
 						for(unsigned int i=0; i<output.size(); i++){
@@ -341,6 +356,9 @@ int main() {
 				}
 				//Removes node
 				else if(output[0].compare("remove")==0){
+#if DEBUG
+cout << "Console: remove" << endl;
+#endif
 					if(output.size()!=2){
 						message = "Usage: " + options[3] + "\nYou supplied: ";
 						for(unsigned int i=0; i<output.size(); i++){
@@ -356,6 +374,9 @@ int main() {
 				}
 				//Ends program
 				else if(output[0].compare("exit")==0){
+#if DEBUG
+cout << "Console: exit" << endl;
+#endif
 					run = false;
 					break;
 				}
