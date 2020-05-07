@@ -137,7 +137,7 @@ unsigned int addNode(string input){
 	
 	//Ensures no node with that name exists
 	if(getIndexFromName(name)!=num_nodes){
-		return -1;
+		return num_nodes;
 	}
 	
 	//Increases the number of nodes being tracked
@@ -255,25 +255,110 @@ int main() {
 	string input;
 	string message = "";
 	vector<string> options = vector<string>();
-	options.push_back("get <name1> <name2>\n\tPerforms dijkstra's algorithm from <name1> to <name2>")
-	options.push_back("add <name>\n\tCreates a new node named <name>");
-	options.push_back("edit <name1> <name1> <distance>\n\tEdits the local distance from <name1> to <name2> to <distance>");
-	options.push_back("remove <name>\n\tRemoves node with name <name> from the graph");
-	options.push_back("exit\n\tExits the program");
-	while(true){
+	vector<string> desc = vector<string>();
+	options.push_back("get <name1> <name2>");
+	desc.push_back("Performs dijkstra's algorithm from <name1> to <name2>");
+	options.push_back("add <name>");
+	desc.push_back("Creates a new node named <name>");
+	options.push_back("edit <name1> <name1> <distance>");
+	desc.push_back("Edits the local distance between <name1> and <name2> to <distance>");
+	options.push_back("remove <name>");
+	desc.push_back("Removes node with name <name> from the graph");
+	options.push_back("exit");
+	desc.push_back("Exits the program");
+	bool run = true;
+	while(run){
 		printGraph();
-		std::cout << messsage << endl;
 		for(unsigned int i=0; i<options.size(); i++){
 			cout << (i+1) << ".  " << options[i] << endl;
+			cout << "\t\t" << desc[i] << endl;
 		}
+		std::cout << messsage << endl;
+		message = "";
 		input = "";
 		cin >> input;
 		cout << "\n\n\n\n" << endl;
-		vector<string> output = parseInput(input);
-		if()
-		
-		if(input.compare("exit")==0)
-			break;
+		if(input.length>0){
+			vector<string> output = parseInput(input);
+			if(output.size()>0){
+				//Gets distance using algorithm
+				if(output[0].compare("get")==0){
+					if(output.size()!=3){
+						message = "Usage: " + options[0] + "\nYou supplied: ";
+						for(unsigned int i=0; i<output.size(); i++){
+							message += output[i] + " ";
+						}
+					}
+					else {
+						int result = dijkstra(output[1], output[2]);
+						if(result == -2){
+							message = "Failure: Invalid node name";
+						} else if(result == -1){
+							message = "Success: ∞ units between " + output[1] + " and " + output[2] + ": no valid path found";
+						} else {
+							message = "Success: " + result + " units between " + output[1] + " and " + output[2];
+						}
+					}
+				}
+				//Adds node
+				else if(output[0].compare("add")==0){
+					if(output.size()!=2){
+						message = "Usage: " + options[1] + "\nYou supplied: ";
+						for(unsigned int i=0; i<output.size(); i++){
+							message += output[i] + " ";
+						}
+					}
+					else {
+						int result = addNode(output[1]);
+						if(result==num_nodes){
+							message = "Failure: node already exists";
+						} else {
+							message = "Success: Node added with index " + to_string(num_nodes);
+						}
+					}
+				}
+				//Edits node
+				else if(output[0].compare("edit")==0){
+					if(output.size()!=4){
+						message = "Usage: " + options[2] + "\nYou supplied: ";
+						for(unsigned int i=0; i<output.size(); i++){
+							message += output[i] + " ";
+						}
+					}
+					else{
+						int distance = stoi(output[3], NULL, 10);
+						if(editNode(output[1], output[2], distance)){
+							message = "Success: Distance changed to " + table[getIndexFromName(output[1])][getIndexFromName(output[2])];
+						} else {
+							message = "Failure: Invalid node name";
+						}
+					}
+				}
+				//Removes node
+				else if(output[0].compare("remove")==0){
+					if(output.size()!=2){
+						message = "Usage: " + options[3] + "\nYou supplied: ";
+						for(unsigned int i=0; i<output.size(); i++){
+							message += output[i] + " ";
+						}
+					} else {
+						if(removeNode(output[1])){
+							message = "Success: Removed node with name " + output[1];
+						} else {
+							message = "Failure: Node does not exist";
+						}
+					}
+				}
+				//Ends program
+				else if(output[0].compare("exit")==0){
+					run = false;
+					break;
+				}
+				else if(output[0].compare("creator")==0 || output[0].compare("author")==0){
+					message = "Michael Quinn";
+				}
+			}
+		}
 	}
 	cout << "Goodbye" << endl;
 }
