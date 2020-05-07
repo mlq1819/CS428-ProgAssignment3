@@ -14,7 +14,8 @@ unsigned int num_nodes = 0;
 vector<string> names;
 vector<vector<int>> table;
 vector<vector<int>> full_table;
-bool graph = true;
+bool graph_view = true;
+bool table_view = false;
 bool updated = false;
 
 string getNameFromIndex(unsigned int index){
@@ -376,8 +377,10 @@ int main() {
 	desc.push_back("Edits the local distance between <name1> and <name2> to <distance>");
 	options.push_back("remove <name>");
 	desc.push_back("Removes node with name <name> from the graph");
-	options.push_back("switch");
-	desc.push_back("Switches from graph view to algorithm table view");
+	options.push_back("graph");
+	desc.push_back("Toggles graph view");
+	options.push_back("table");
+	desc.push_back("Toggles algorithm view");
 	options.push_back("exit");
 	desc.push_back("Exits the program");
 #if DEBUG
@@ -388,9 +391,9 @@ unsigned long cycle_num = 0;
 #if DEBUG
 cout << "Cycle: " << ++cycle_num << endl;
 #endif
-		if(graph)
+		if(graph_view)
 			printGraph();
-		else
+		if(table_view)
 			printTable();
 		for(unsigned int i=0; i<options.size(); i++){
 			cout << (i+1) << ".  " << options[i] << endl;
@@ -526,14 +529,29 @@ cout << "Usage Accurate" << endl;
 						}
 					}
 				} 
-				//Switches between views
-				else if(output[0].compare("switch")==0){
-					graph = !graph;
-					message = "Switched to ";
-					if(graph)
-						message += "graph view";
+				//Toggles graph view
+				else if(output[0].compare("graph")==0){
+#if DEBUG
+cout << "Console: graph" << endl;
+#endif
+					graph_view = !graph_view;
+					message = "Toggled graph view ";
+					if(graph_view)
+						message += "on";
 					else
-						message += "algorithm view";
+						message += "off";
+				}
+				//Toggles table view
+				else if(output[0].compare("table")==0){
+#if DEBUG
+cout << "Console: table" << endl;
+#endif
+					table_view = !table_view;
+					message = "Toggled algorithm table view ";
+					if(table_view)
+						message += "on";
+					else
+						message += "off";
 				}
 				//Ends program
 				else if(output[0].compare("exit")==0 || output[0].compare("quit")==0 || output[0].compare("end")==0){
