@@ -148,12 +148,12 @@ cout << ")" << endl;
 	for(unsigned int i=0; i<num_nodes; i++){
 		cout << names[i] << "\t";
 	}
-	cout << endl;
+	cout << "\n" << endl;
 	cout << "\t";
 	for(unsigned int i=0; i<num_nodes; i++){
 		cout << distance[i] << "\t";
 	}
-	cout << endl;
+	cout << "\n\n" << endl;
 	return distance[to];
 }
 
