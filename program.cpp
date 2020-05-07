@@ -486,7 +486,7 @@ int main() {
 	options.push_back("next");
 	desc.push_back("Changes to the next built-in model (a->b->c->a), erasing any changes made to the current one");
 	options.push_back("prev");
-	desc.push_back("Changes to the previous built-in model (a->b->c->a), erasing any changes made to the current one");
+	desc.push_back("Changes to the previous built-in model (a->c->b->a), erasing any changes made to the current one");
 	options.push_back("graph");
 	desc.push_back("Toggles graph view");
 	options.push_back("table");
