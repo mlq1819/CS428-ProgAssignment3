@@ -79,13 +79,42 @@ int dijkstra(unsigned int from, unsigned int to){
 	
 	//Ensures all reachable nodes are visited
 	while(!all_visited){
-		
+#if DEBUG
+cout << "\tvisiting" << current << "(";
+if(visited[current])
+	cout << "visited";
+else
+	cout << "unvisited";
+cout << ",";
+if(distance[current]==-1)
+	cout << "∞";
+else
+	cout << distance[current];
+cout << ")" << endl;
+#endif
 		//Ensures the current node has not been visited
 		if(!visited[current]){
 			cout << "At \"" << getNameFromIndex(current) << "\":" << endl;
 			
 			//Loops through all the nodes, updating their saved distances through the local distance
 			for(unsigned int i=0; i<num_nodes; i++){
+#if DEBUG
+cout << "\t\tchecking" << current << "(";
+if(visited[i])
+	cout << "visited";
+else
+	cout << "unvisited";
+cout << ",";
+if(distance[i]==-1)
+	cout << "∞";
+else
+	cout << distance[current];
+if(table[current][i]==-1)
+	cout << "distant";
+else
+	cout << "local " << table[current][i];
+cout << ")" << endl;
+#endif
 				cout << "\tLocal to \"" << getNameFromIndex(i) << "\"..." << endl;
 				if(table[current][i]>-1){ //ensure there is a valid local path to it
 					cout << "\t\tLocal: " << table[current][i] << endl;
