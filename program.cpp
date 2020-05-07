@@ -120,10 +120,10 @@ cout << ")" << endl;
 				cout << "\tLocal to \"" << getNameFromIndex(i) << "\"..." << endl;
 				if(table[current][i]>-1){ //ensure there is a valid local path to it
 					cout << "\t\tLocal: " << table[current][i] << endl;
-					if(distance[current] == -1)
-						cout << "\t\tS@ved: ∞" << endl;
+					if(distance[i] == -1)
+						cout << "\t\tSaved: ∞" << endl;
 					else
-						cout << "\t\tSaveb: " << distance[current] << endl;
+						cout << "\t\tSaved: " << distance[current] << endl;
 					int local = table[current][i] + distance[current];
 					if(distance[i] == -1 || local < distance[i]){
 						distance[i] = local;
