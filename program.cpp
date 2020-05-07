@@ -117,41 +117,31 @@ bool removeNode(string name){
 }
 
 void fillGraph(){
-	bool success = true;
-	success = success && addNode("t");
-	success = success && addNode("u");
-	success = success && addNode("v");
-	success = success && addNode("w");
-	success = success && addNode("x");
-	success = success && addNode("y");
-	success = success && addNode("z");
+	addNode("t"); 
+	addNode("u");
+	addNode("v");
+	addNode("w");
+	addNode("x");
+	addNode("y");
+	addNode("z");
 	
-	if(success!=true){
-		cout << "Issue adding nodes" << endl;
-		success = true;
-	}
+	editNode("t", "u", 2);
+	editNode("t", "v", 4);
+	editNode("t", "y", 7);
 	
-	success = success && editNode("t", "u", 2);
-	success = success && editNode("t", "v", 4);
-	success = success && editNode("t", "y", 7);
+	editNode("u", "v", 3);
+	editNode("u", "w", 3);
 	
-	success = success && editNode("u", "v", 3);
-	success = success && editNode("u", "w", 3);
+	editNode("v", "w", 4);
+	editNode("v", "x", 3);
+	editNode("v", "y", 8);
 	
-	success = success && editNode("v", "w", 4);
-	success = success && editNode("v", "x", 3);
-	success = success && editNode("v", "y", 8);
+	editNode("w", "x", 6);
 	
-	success = success && editNode("w", "x", 6);
+	editNode("x", "y", 6);
+	editNode("x", "z", 8);
 	
-	success = success && editNode("x", "y", 6);
-	success = success && editNode("x", "z", 8);
-	
-	success = success && editNode("y", "z", 12);
-	
-	if(success!=true){
-		cout << "Issue editing nodes" << endl;
-	}
+	editNode("y", "z", 12);
 }
 
 int main() { 
