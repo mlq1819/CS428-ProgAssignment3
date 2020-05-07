@@ -35,6 +35,9 @@ void printGraph(){
 }
 
 string getNameFromIndex(unsigned int index){
+#if DEBUG
+cout << "\tgetNameFromIndex(" << index << ")... ";
+#endif
 	return names[index];
 }
 
