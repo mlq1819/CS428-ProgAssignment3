@@ -10,3 +10,7 @@ How to execute the code
 2. Various commands are available to you, with provided descriptions
 3. Typing in either of the following commands will cycle between the parts of the assignment: next; prev
 4. Type end, exit, or quit to close the program (or just ctrl+c, it won't matter)
+
+Notes
+1. Graph view indicates the local immediate links between nodes. Blanks indicate there is no immediate link between those two nodes.
+2. Algorithm view indicates the length of the shortest path between any two nodes
