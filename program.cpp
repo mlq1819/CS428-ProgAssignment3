@@ -18,7 +18,7 @@ void printGraph(){
 	for(unsigned int i=0; i<num_nodes; i++){
 		cout << names[i] << "\t";
 	}
-	cout << "\t" << endl;
+	cout << "\n" << endl;
 	for(unsigned int i=0; i<num_nodes; i++){
 		cout << names[i] << "\t";
 		for(unsigned int j=0; j<num_nodes; j++){
