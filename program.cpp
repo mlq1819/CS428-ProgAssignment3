@@ -479,7 +479,7 @@ int main() {
 	desc.push_back("Performs dijkstra's algorithm from <name1> to <name2>");
 	options.push_back("add <name>");
 	desc.push_back("Creates a new node named <name>");
-	options.push_back("edit <name1> <name1> <distance>");
+	options.push_back("edit <name1> <name2> <distance>");
 	desc.push_back("Edits the local distance between <name1> and <name2> to <distance>");
 	options.push_back("remove <name>");
 	desc.push_back("Removes node with name <name> from the graph");
