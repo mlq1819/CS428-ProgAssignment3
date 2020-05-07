@@ -121,7 +121,7 @@ cout << ")" << endl;
 				if(table[current][i]>-1){ //ensure there is a valid local path to it
 					cout << "\t\tLocal: " << table[current][i] << endl;
 					if(distance[current] == -1)
-						cout << "\t\tSaved: ∞" << endl;
+						cout << "\t\tSaved: ∞!" << endl;
 					else
 						cout << "\t\tSaved: " << distance[current] << endl;
 					int local = table[current][i] + distance[current];
