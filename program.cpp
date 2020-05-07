@@ -17,6 +17,7 @@ vector<vector<int>> full_table;
 bool graph_view = true;
 bool table_view = false;
 bool updated = false;
+int table_num = 0;
 
 string getNameFromIndex(unsigned int index){
 	return names[index];
@@ -279,7 +280,31 @@ cout << "removeNode(" << name << ")" << endl;
 	return removeNode(getIndexFromName(name));
 }
 
-void fillGraph(){
+void fillA(){
+	addNode("u");
+	addNode("v");
+	addNode("w");
+	addNode("x");
+	addNode("y");
+	addNode("z");
+	
+	editNode("u", "v", 2);
+	editNode("u", "w", 5);
+	editNode("u", "x", 1);
+	
+	editNode("v", "w", 3);
+	editNode("v", "x", 2);
+	
+	editNode("w", "x", 3);
+	editNode("w", "y", 1);
+	editNode("w", "z", 5);
+	
+	editNode("x", "y", 1);
+	
+	editNode("y", "z", 2);
+}
+
+void fillB(){
 	addNode("t"); 
 	addNode("u");
 	addNode("v");
@@ -305,6 +330,50 @@ void fillGraph(){
 	editNode("x", "z", 8);
 	
 	editNode("y", "z", 12);
+}
+
+void fillC(){
+	addNode("u");
+	addNode("v");
+	addNode("w");
+	addNode("x");
+	addNode("y");
+	addNode("z");
+	
+	editNode("u", "v", 7);
+	editNode("u", "w", 8);
+	editNode("u", "x", 2);
+	
+	editNode("v", "w", 5);
+	editNode("v", "x", 3);
+	
+	editNode("w", "x", 1);
+	editNode("w", "y", 3);
+	editNode("w", "z", 9);
+	
+	editNode("x", "y", 8);
+	
+	editNode("y", "z", 2);
+}
+
+void clearGraph(){
+	while(num_nodes>0)
+		removeNode(num_nodes-1);
+}
+
+void fillGraph(){
+	clearGraph();
+	switch(table_num){
+		case 0:
+			fillA();
+			break;
+		case 1:
+			fillB();
+			break;
+		case 2:
+			fillC();
+			break;
+	}
 }
 
 vector<string> parseInput(string input){
@@ -390,6 +459,8 @@ int main() {
 	desc.push_back("Edits the local distance between <name1> and <name2> to <distance>");
 	options.push_back("remove <name>");
 	desc.push_back("Removes node with name <name> from the graph");
+	options.push_back("next");
+	desc.push_back("Changes to the next built-in model (a->b->c->a), erasing any changes made to the current one");
 	options.push_back("graph");
 	desc.push_back("Toggles graph view");
 	options.push_back("table");
@@ -409,7 +480,23 @@ cout << "Cycle: " << ++cycle_num << endl;
 		if(table_view)
 			printTable();
 		for(unsigned int i=0; i<options.size(); i++){
-			cout << (i+1) << ".  " << options[i] << endl;
+			if(options[i].compare("next")==0){
+				cout << (i+1) << ".  " << options[i] << " (";
+				switch(table_num){
+					case 0:
+						cout << "b";
+						break;
+					case 1:
+						cout << "c";
+						break;
+					case 2:
+						cout << "a";
+						break;
+				}
+				cout << ")" << endl;
+			} else{
+				cout << (i+1) << ".  " << options[i] << endl;
+			}
 			cout << "\t\t" << desc[i] << endl;
 		}
 		if(message.compare("")==0)
@@ -507,7 +594,7 @@ cout << "Usage Error" << endl;
 						}
 					}
 					else{
-#if DEBUG
+#if DEBUG 
 cout << "Usage Accurate" << endl;
 #endif
 						int distance = stoi(output[3], NULL, 10);
@@ -542,6 +629,26 @@ cout << "Usage Accurate" << endl;
 						}
 					}
 				} 
+				//Switches to the next default table
+				else if(output[0].compare("next")==0){
+#if DEBUG
+cout << "Console: graph" << endl;
+#endif
+					table_num = (table_num + 1)%3;
+					fillGraph();
+					message = "Switched to model ";
+					switch(table_num){
+						case 0:
+							message += "a";
+							break;
+						case 1:
+							message += "b";
+							break;
+						case 2:
+							message += "c";
+							break;
+					}
+				}
 				//Toggles graph view
 				else if(output[0].compare("graph")==0){
 #if DEBUG
