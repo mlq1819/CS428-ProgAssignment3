@@ -173,6 +173,7 @@ bool check(){
 			output = output && (table[i][j] == table[j][i]);
 		}
 	}
+	return output;
 }
 
 void fullDijkstra(){
