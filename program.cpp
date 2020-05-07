@@ -117,8 +117,9 @@ else
 	cout << "local " << table[current][i];
 cout << ")" << endl;
 #endif
-				cout << "\tLocal to \"" << getNameFromIndex(i) << "\"..." << endl;
+				cout << "\tChecking \"" << getNameFromIndex(i) << "\"..." << endl;
 				if(table[current][i]>-1){ //ensure there is a valid local path to it
+					cout << "\tTo \"" << getNameFromIndex(i) << "\":" << endl;
 					cout << "\t\tLocal: " << table[current][i] << endl;
 					if(distance[i] == -1)
 						cout << "\t\tSaved: ∞" << endl;
@@ -129,6 +130,8 @@ cout << ")" << endl;
 						distance[i] = local;
 						cout << "\t\t\tUpdated value to " << distance[i] << endl;
 					}
+				} else {
+					cout << "\tTo \"" << getNameFromIndex(i) << "\": Not local" << endl;
 				}
 			}
 			visited[current] = true;
