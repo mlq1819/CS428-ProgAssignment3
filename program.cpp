@@ -73,8 +73,8 @@ else
 	cout << distance[current];
 cout << ")" << endl;
 #endif
-		//Ensures the current node has not been visited
-		if(!visited[current]){
+		//Ensures the current node has not been visited and is reachable
+		if(!visited[current] || distance[current]>-1){
 			if(do_print)
 				cout << "At \"" << getNameFromIndex(current) << "\": " << distance[current] << endl;
 			
