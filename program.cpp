@@ -299,7 +299,7 @@ int main() {
 						} else if(result == -1){
 							message = "Success: ∞ units between " + output[1] + " and " + output[2] + ": no valid path found";
 						} else {
-							message = "Success: " + result + " units between " + output[1] + " and " + output[2];
+							message = "Success: " + to_string(result) + " units between " + output[1] + " and " + output[2];
 						}
 					}
 				}
@@ -312,7 +312,7 @@ int main() {
 						}
 					}
 					else {
-						int result = addNode(output[1]);
+						unsigned int result = addNode(output[1]);
 						if(result==num_nodes){
 							message = "Failure: node already exists";
 						} else {
