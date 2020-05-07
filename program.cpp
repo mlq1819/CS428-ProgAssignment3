@@ -57,6 +57,9 @@ cout << "... unavailable" << endl;
 }
 
 int dijkstra(unsigned int from, unsigned int to){
+#if DEBUG
+cout << "dijkstra(" << from << "," << to << ")" << endl;
+#endif
 	if(from == num_nodes || to == num_nodes){
 		return -2;
 	}
