@@ -144,6 +144,16 @@ cout << ")" << endl;
 		//iterates to the next index, but will loop around if necessary
 		current = (current+1)%num_nodes;
 	}
+	cout << "\t";
+	for(unsigned int i=0; i<num_nodes; i++){
+		cout << names[i] << "\t";
+	}
+	cout << endl;
+	cout << "\t";
+	for(unsigned int i=0; i<num_nodes; i++){
+		cout << distance[i] << "\t";
+	}
+	cout << endl;
 	return distance[to];
 }
 
