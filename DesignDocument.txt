@@ -7,4 +7,5 @@ How to compile the code
 
 How to execute the code
 1. In the working directory, run the following command: ./program
-2. You may execute various commmands as you wish
+2. Various commands are available to you
+3. Typing in the following command will cycle between the parts of the assignment: next
