@@ -577,6 +577,12 @@ cout << "Console: exit" << endl;
 				else if(output[0].compare("creator")==0 || output[0].compare("author")==0){
 					message = "Michael Quinn";
 				}
+				else {
+					message = "Invalid command: ";
+					for(unsigned int i=0; i<output.size(); i++){
+						message += output[i] + " ";
+					}
+				}
 			}
 		}
 	}
