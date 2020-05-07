@@ -15,15 +15,22 @@ vector<vector<int>> table;
 
 void printGraph(){
 	cout << "\t";
-	for(unsigned int i=0; i<names.size(); i++){
+	for(unsigned int i=0; i<num_nodes; i++){
 		cout << names[i] << "\t";
 	}
-	cout << endl;
-	for(unsigned int i=0; i<table.size(); i++){
-		cout << names[i] << "\t";
-		for(unsigned int j=0; j<table[i].size(); j++){
-			if(table[i][j]<=0)
+	cout << "\t" << endl;
+	cout << "\t";
+	for(unsigned int i=0; i<num_nodes; i++){
+		cout << "-\t";
+	}
+	cout << "\t" << endl;
+	for(unsigned int i=0; i<num_nodes; i++){
+		cout << names[i] << " |\t";
+		for(unsigned int j=0; j<num_nodes; j++){
+			if(table[i][j]<0)
 				cout << "\t";
+			else if(table[i][j]==0)
+				cout << "\\\t";
 			else
 				cout << table[i][j] << "\t";
 		}
