@@ -40,7 +40,7 @@ string getNameFromIndex(unsigned int index){
 
 unsigned int getIndexFromName(string name){
 #if DEBUG
-cout << "getIndexFromName(" << name << ")..." << endl;
+cout << "\tgetIndexFromName(" << name << ")... ";
 #endif
 	for(unsigned int i=0; i<names.size(); i++){
 		if(name.compare(names[i])==0){
@@ -136,10 +136,16 @@ bool editNode(unsigned int from, unsigned int to, int new_distance){
 }	
 
 bool editNode(string from, string to, int new_distance){
+#if DEBUG
+cout << "\teditNode(" << from << "," << to << "," << new_distance << ")" << endl;
+#endif
 	return editNode(getIndexFromName(from), getIndexFromName(to), new_distance);
 }
 
 unsigned int addNode(string input){
+#if DEBUG
+cout << "\taddNode(" << input << ")" << endl;
+#endif
 	string name = "";
 	for(unsigned int i=0; i<input.size(); i++){
 		name.push_back(tolower(input.at(i)));
@@ -192,6 +198,9 @@ bool removeNode(unsigned int index){
 }
 
 bool removeNode(string name){
+#if DEBUG
+cout << "\tremoveNode(" << name << ")" << endl;
+#endif
 	return removeNode(getIndexFromName(name));
 }
 
