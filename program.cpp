@@ -43,10 +43,6 @@ vector<int> rowDijkstra(unsigned int from, bool do_print){
 #if DEBUG
 cout << "rowDijkstra(" << from << ")" << endl;
 #endif
-
-	if(from == num_nodes){
-		return -2;
-	}
 	
 	vector<bool> visited = vector<bool>();
 	vector<int> distance = vector<int>();
@@ -158,7 +154,7 @@ cout << "dijkstra(" << from << "," << to << ")" << endl;
 	
 	cout << "Performing dijkstra's algorithm on \"" << getNameFromIndex(from) << "\" to \"" << getNameFromIndex(to) << "\"" << endl;
 	
-	return allDijkstra(from, true)[to];
+	return rowDijkstra(from, true)[to];
 }
 
 int dijkstra(string from, string to){
@@ -172,7 +168,7 @@ int fullDijkstra(){
 	updated=true;
 	full_table.clear();
 	for(unsigned int i=0; i<num_nodes; i++){
-		full_table.push_back(rowDijkstra(i), false);
+		full_table.push_back(rowDijkstra(i, false));
 	}
 }
 
