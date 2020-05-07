@@ -114,6 +114,9 @@ int dijkstra(unsigned int from, unsigned int to){
 }
 
 int dijkstra(string from, string to){
+#if DEBUG
+cout << "dijkstra(" << from << "," << to << ")" << endl;
+#endif
 	return dijkstra(getIndexFromName(from), getIndexFromName(to));
 }
 
@@ -137,14 +140,14 @@ bool editNode(unsigned int from, unsigned int to, int new_distance){
 
 bool editNode(string from, string to, int new_distance){
 #if DEBUG
-cout << "\teditNode(" << from << "," << to << "," << new_distance << ")" << endl;
+cout << "editNode(" << from << "," << to << "," << new_distance << ")" << endl;
 #endif
 	return editNode(getIndexFromName(from), getIndexFromName(to), new_distance);
 }
 
 unsigned int addNode(string input){
 #if DEBUG
-cout << "\taddNode(" << input << ")" << endl;
+cout << "addNode(" << input << ")" << endl;
 #endif
 	string name = "";
 	for(unsigned int i=0; i<input.size(); i++){
@@ -199,7 +202,7 @@ bool removeNode(unsigned int index){
 
 bool removeNode(string name){
 #if DEBUG
-cout << "\tremoveNode(" << name << ")" << endl;
+cout << "removeNode(" << name << ")" << endl;
 #endif
 	return removeNode(getIndexFromName(name));
 }
