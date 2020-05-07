@@ -70,6 +70,9 @@ cout << "dijkstra(" << from << "," << to << ")" << endl;
 	vector<int> distance = vector<int>();
 	unsigned int current = from;
 	
+#if DEBUG
+cout << "\tAssigning default values to vectors..." << endl;
+#endif
 	for(unsigned int i=0; i<num_nodes; i++){
 		visited[i]=false;
 		distance[i]=-1;
