@@ -37,7 +37,7 @@ unsigned int getIndexFromName(string name){
 		if(name.compare(names[i])==0)
 			return i;
 	}
-	return NULL;
+	return num_nodes;
 }
 
 int getDistance(unsigned int from, unsigned int to){
@@ -49,7 +49,7 @@ int getDistance(string from, string to){
 }
 
 bool editNode(unsigned int from, unsigned int to, int new_distance){
-	if(from == NULL || to == NULL)
+	if(from == num_nodes || to == num_nodes)
 		return false;
 	if(new_distance==0 && from!=to)
 		return false;
@@ -92,7 +92,7 @@ unsigned int addNode(string name){
 }
 
 bool removeNode(unsigned int index){
-	if(index == NULL)
+	if(index == num_nodes)
 		return false;
 	
 	//Decreases the number of tracked nodes
@@ -156,4 +156,5 @@ void fillGraph(){
 
 int main() { 
 	fillGraph();
+	printGraph();
 }
