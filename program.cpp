@@ -694,7 +694,7 @@ cout << "Console: next" << endl;
 #if DEBUG
 cout << "Console: prev" << endl;
 #endif
-					table_num = (table_num - 1)%3;
+					table_num = (table_num + 2)%3;
 					fillGraph();
 					message = "Switched to model ";
 					switch(table_num){
