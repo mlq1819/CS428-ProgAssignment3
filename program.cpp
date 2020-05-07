@@ -272,7 +272,7 @@ int main() {
 	bool run = true;
 	while(run){
 #if DEBUG
-		cout >> ++cycle_num >> endl;
+		cout << "Cycle: " << ++cycle_num << endl;
 #endif
 		printGraph();
 		for(unsigned int i=0; i<options.size(); i++){
