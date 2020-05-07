@@ -96,7 +96,7 @@ cout << ")" << endl;
 #endif
 		//Ensures the current node has not been visited
 		if(!visited[current]){
-			cout << "At \"" << getNameFromIndex(current) << "\":" << endl;
+			cout << "At \"" << getNameFromIndex(current) << "\":" << distance[current] << endl;
 			
 			//Loops through all the nodes, updating their saved distances through the local distance
 			for(unsigned int i=0; i<num_nodes; i++){
