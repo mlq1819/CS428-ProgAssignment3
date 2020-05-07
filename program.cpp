@@ -279,8 +279,9 @@ int main() {
 			cout << "\n" << message << endl;
 		message = "";
 		input = "";
+		cout << "Input command:" << endl;
 		cin >> input;
-		cout << "\n\n\n\n" << endl;
+		system("clear");
 		if(input.size()>0){
 			vector<string> output = parseInput(input);
 			if(output.size()>0){
