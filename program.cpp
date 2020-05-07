@@ -286,7 +286,7 @@ int main() {
 		message = "";
 		input = "";
 		cout << "Input command:" << endl;
-		cin >> input;
+		getline(cin, input);
 #if DEBUG
 		cout << "\n\n\n\n" << endl;
 #else
