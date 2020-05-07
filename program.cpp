@@ -287,8 +287,11 @@ int main() {
 		input = "";
 		cout << "Input command:" << endl;
 		cin >> input;
-		//system("clear");
+#if DEBUG
 		cout << "\n\n\n\n" << endl;
+#else
+		system("clear");
+#endif
 		if(input.size()>0){
 #if DEBUG
 cout << input << endl;
