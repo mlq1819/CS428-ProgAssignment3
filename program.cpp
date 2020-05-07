@@ -144,7 +144,7 @@ cout << ")" << endl;
 		//iterates to the next index, but will loop around if necessary
 		current = (current+1)%num_nodes;
 	}
-	cout << "\t";
+	cout << "\n\t";
 	for(unsigned int i=0; i<num_nodes; i++){
 		cout << names[i] << "\t";
 	}
