@@ -164,7 +164,7 @@ cout << "dijkstra(" << from << "," << to << ")" << endl;
 	return dijkstra(getIndexFromName(from), getIndexFromName(to));
 }
 
-int fullDijkstra(){
+void fullDijkstra(){
 	updated=true;
 	full_table.clear();
 	for(unsigned int i=0; i<num_nodes; i++){
