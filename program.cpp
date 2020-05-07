@@ -4,6 +4,7 @@
 #include <string.h> 
 #include <time.h>
 #include <vector>
+#include <ctype.h>
 
 #define DEBUG true
 
@@ -45,11 +46,64 @@ unsigned int getIndexFromName(string name){
 	return num_nodes;
 }
 
-int getDistance(unsigned int from, unsigned int to){
-	return table[from][to];
+int dijkstra(unsigned int from, unsigned int to){
+	if(from == num_nodes || to == num_nodes){
+		return -2;
+	}
+	
+	cout << "Performing dijkstra's algorithm on \"" << getNameFromIndex(from) << "\" to \"" << getNameFromIndex(to) << "\"" << endl;
+	
+	vector<bool> visited = vector<bool>();
+	vector<int> distance = vector<int>();
+	unsigned int current = from;
+	
+	for(unsigned int i=0; i<num_nodes; i++){
+		visited[i]=false;
+		distance[i]=-1;
+	}
+	
+	distance[from] = 0;
+	
+	//variable that remains false so long as there exists a single reachable node that is not marked visited
+	bool all_visited = false;
+	
+	//Ensures all reachable nodes are visited
+	while(!all_visited){
+		
+		//Ensures the current node has not been visited
+		if(!visited[current]){
+			cout << "At \"" << getNameFromIndex(current) << "\":" << endl;
+			
+			//Loops through all the nodes, updating their saved distances through the local distance
+			for(unsigned int i=0; i<num_nodes; i++){
+				cout << "\tLocal to \"" << getNameFromIndex(i) << "\"..." << endl;
+				if(table[current][i]>-1){ //ensure there is a valid local path to it
+					cout << "\t\tLocal: " << table[current][i] << endl;
+					if(distance[current] == -1)
+						cout << "\t\tSaved: ∞" << endl;
+					else
+						cout << "\t\tSaved: " << distance[current] << endl;
+					int local = table[current][i] + distance[current];
+					if(distance[i] == -1 || local < distance[i]){
+						distance[i] = local;
+						cout << "\t\t\tUpdated value to " << distance[i] << endl;
+					}
+				}
+			}
+			visited[i] = true;
+			all_visited = true;
+			for(unsigned int i=0; i<num_nodes; i++){
+				if(distance[i]>-1)
+					all_visited = all_visited && visited[i];
+			}
+		}
+		//iterates to the next index, but will loop around if necessary
+		current = (current+1)%num_nodes;
+	}
+	return distance[to];
 }
 
-int getDistance(string from, string to){
+int dijkstra(string from, string to){
 	return getDistance(getIndexFromName(from), getIndexFromName(to));
 }
 
@@ -75,7 +129,17 @@ bool editNode(string from, string to, int new_distance){
 	return editNode(getIndexFromName(from), getIndexFromName(to), new_distance);
 }
 
-unsigned int addNode(string name){
+unsigned int addNode(string input){
+	string name = "";
+	for(unsigned int i=0; i<input.size(); i++){
+		name.push_back(tolower(input.at(i)));
+	}
+	
+	//Ensures no node with that name exists
+	if(getIndexFromName(name)!=num_nodes){
+		return -1;
+	}
+	
 	//Increases the number of nodes being tracked
 	num_nodes++;
 	
@@ -149,7 +213,67 @@ void fillGraph(){
 	editNode("y", "z", 12);
 }
 
+vector<string> parseInput(string input){
+	bool new_word = true;
+	vector<string> output = vector<string>();
+	string current = "";
+	
+	//Iterates through the input by each character
+	for(unsigned int i = 0; i<input.size(); i++){
+		char c = tolower(input.at(i));
+		
+		//If it is a whitespace
+		if(c == ' ' || c == '\t' || c == '\n'){
+			
+			//If there was a word being worked on
+			if(!new_word){
+				if(current.compare("")!=0){
+					output.push_back(current);
+					current = "";
+				}
+				new_word = true;
+			}
+		} 
+		//If it is not a whitespace
+		else {
+			new_word = false;
+			current.push_back(c);
+		}
+	}
+	
+	//If there was a word being worked on
+	if(!new_word && current.compare("")!=0){
+		output.push_back(current);
+		current="";
+		new_Word = true;
+	}
+	return output;
+}
+
 int main() { 
 	fillGraph();
-	printGraph();
+	string input;
+	string message = "";
+	vector<string> options = vector<string>();
+	options.push_back("get <name1> <name2>\n\tPerforms dijkstra's algorithm from <name1> to <name2>")
+	options.push_back("add <name>\n\tCreates a new node named <name>");
+	options.push_back("edit <name1> <name1> <distance>\n\tEdits the local distance from <name1> to <name2> to <distance>");
+	options.push_back("remove <name>\n\tRemoves node with name <name> from the graph");
+	options.push_back("exit\n\tExits the program");
+	while(true){
+		printGraph();
+		std::cout << messsage << endl;
+		for(unsigned int i=0; i<options.size(); i++){
+			cout << (i+1) << ".  " << options[i] << endl;
+		}
+		input = "";
+		cin >> input;
+		cout << "\n\n\n\n" << endl;
+		vector<string> output = parseInput(input);
+		if()
+		
+		if(input.compare("exit")==0)
+			break;
+	}
+	cout << "Goodbye" << endl;
 }
