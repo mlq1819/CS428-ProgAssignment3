@@ -19,18 +19,13 @@ void printGraph(){
 		cout << names[i] << "\t";
 	}
 	cout << "\t" << endl;
-	cout << "\t";
 	for(unsigned int i=0; i<num_nodes; i++){
-		cout << "-\t";
-	}
-	cout << "\t" << endl;
-	for(unsigned int i=0; i<num_nodes; i++){
-		cout << names[i] << " |\t";
+		cout << names[i] << "\t";
 		for(unsigned int j=0; j<num_nodes; j++){
 			if(table[i][j]<0)
 				cout << "\t";
 			else if(table[i][j]==0)
-				cout << "\\\t";
+				cout << "-\t";
 			else
 				cout << table[i][j] << "\t";
 		}
