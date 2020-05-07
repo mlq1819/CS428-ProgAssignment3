@@ -485,6 +485,8 @@ int main() {
 	desc.push_back("Removes node with name <name> from the graph");
 	options.push_back("next");
 	desc.push_back("Changes to the next built-in model (a->b->c->a), erasing any changes made to the current one");
+	options.push_back("prev");
+	desc.push_back("Changes to the previous built-in model (a->b->c->a), erasing any changes made to the current one");
 	options.push_back("graph");
 	desc.push_back("Toggles graph view");
 	options.push_back("table");
@@ -518,7 +520,21 @@ cout << "Cycle: " << ++cycle_num << endl;
 						break;
 				}
 				cout << ")" << endl;
-			} else{
+			} else if(options[i].compare("prev")==0){
+				cout << (i+1) << ".  " << options[i] << " (";
+				switch(table_num){
+					case 0:
+						cout << "c";
+						break;
+					case 1:
+						cout << "a";
+						break;
+					case 2:
+						cout << "b";
+						break;
+				}
+				cout << ")" << endl;
+			} else {
 				cout << (i+1) << ".  " << options[i] << endl;
 			}
 			cout << "\t\t" << desc[i] << endl;
@@ -656,9 +672,29 @@ cout << "Usage Accurate" << endl;
 				//Switches to the next default table
 				else if(output[0].compare("next")==0){
 #if DEBUG
-cout << "Console: graph" << endl;
+cout << "Console: next" << endl;
 #endif
 					table_num = (table_num + 1)%3;
+					fillGraph();
+					message = "Switched to model ";
+					switch(table_num){
+						case 0:
+							message += "a";
+							break;
+						case 1:
+							message += "b";
+							break;
+						case 2:
+							message += "c";
+							break;
+					}
+				}
+				//Switches to the prev default table
+				else if(output[0].compare("prev")==0){
+#if DEBUG
+cout << "Console: prev" << endl;
+#endif
+					table_num = (table_num - 1)%3;
 					fillGraph();
 					message = "Switched to model ";
 					switch(table_num){
