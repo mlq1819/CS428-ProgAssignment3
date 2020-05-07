@@ -39,10 +39,20 @@ string getNameFromIndex(unsigned int index){
 }
 
 unsigned int getIndexFromName(string name){
+#if DEBUG
+cout << "getIndexFromName(" << name << ")..." << endl;
+#endif
 	for(unsigned int i=0; i<names.size(); i++){
-		if(name.compare(names[i])==0)
+		if(name.compare(names[i])==0){
+#if DEBUG
+cout << "... #" << i << endl;
+#endif
 			return i;
+		}
 	}
+#if DEBUG
+cout << "... unavailable" << endl;
+#endif
 	return num_nodes;
 }
 
